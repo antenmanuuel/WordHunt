@@ -30,11 +30,11 @@ jobs:
         run: npm install
 
       - name: Run Cypress Tests
-        run: cd client && npx cypress open
+        run: npx cypress open
         working-directory: client
 
       - name: Run Backend Jest Tests
-        run: cd server && npm test
+        run: npm test
         working-directory: server
         
   build:
