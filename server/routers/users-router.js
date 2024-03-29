@@ -17,22 +17,21 @@ userRouter.get("/", async (req, res) => {
 });
 
 userRouter.get("/login", (req, res) => {
-  // Check if the user has a cookie with a key of "username"
   let existingUsername = req.cookies.username;
-  if (!existingUsername)
-    // If the user does not have a cookie, generate a random username
-    existingUsername = randomUsername(); // subject to change
+  if (!existingUsername) {
+    existingUsername = randomUsername();
+  }
 
   try {
-    const newUser = new User({
-      username: existingUsername,
-    });
-    newUser.save().catch((err) => {
-      console.log("user already exists");
-    });
-    res.cookie("username", existingUsername).status(200).json({
-      username: existingUsername,
-    });
+    const newUser = new User({ username: existingUsername });
+    newUser.save().catch((err) => console.log("user already exists"));
+    
+    // Adjust cookie settings for secure transmission
+    res.cookie("username", existingUsername, { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production", // Ensure cookies are secure in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" // Use 'none' for cross-site requests, 'lax' for same-site requests
+    }).status(200).json({ username: existingUsername });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
