@@ -1,6 +1,6 @@
 describe('RulesPage Tests', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:5173/');
+      cy.visit('https://wordhunt-fff9a57fb464.herokuapp.com/');
     });
   
     it('displays the correct title and game rules content', () => {
@@ -12,7 +12,7 @@ describe('RulesPage Tests', () => {
         cy.contains('View Rules').click();
         cy.contains('h1', 'Game Rules').should('be.visible');
         cy.contains('Back to Home').click();
-        cy.url().should('include', 'http://localhost:5173/');
+        cy.url().should('include', 'https://wordhunt-fff9a57fb464.herokuapp.com/');
     });
   });
   
