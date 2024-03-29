@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "script1": "cd client && npm start",
-    "script2": "cd server && npm start",
-    "start": "npm run script1 & npm run script2"
+    "build": "cd client && npm install && npm run build",
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "autoprefixer": "^10.4.17",
