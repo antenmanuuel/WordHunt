@@ -8,22 +8,18 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT;
 
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-mongoose.connect(
-  process.env.MONGODB_URI
-); //changed to ipv4
+mongoose.connect(process.env.MONGODB_URI); //changed to ipv4
 
 // "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
 
 // All other routes should redirect to the Vite app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 });
-
 
 const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
