@@ -13,7 +13,7 @@ import GameOverPage from "./pages/GameOverPage";
 function App() {
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    const newSocket = io('http://localhost:3000', { autoConnect: false });
+    const newSocket = io( { autoConnect: false });
     setSocket(newSocket);
 
     return () => newSocket.disconnect();
