@@ -1,6 +1,6 @@
 describe('HomePage Tests', () => {
   beforeEach(() => {
-    cy.visit(' http://localhost:5173/'); 
+    cy.visit('https://wordhunt-fff9a57fb464.herokuapp.com/'); 
   });
 
 
