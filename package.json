@@ -1,8 +1,18 @@
 {
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm install && npm start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "21.x",
+    "npm": "10.x"
+  },
   "dependencies": {
     "autoprefixer": "^10.4.17",
     "js-cookie": "^3.0.5",
     "postcss": "^8.4.33",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.2.6"
   }
 }
