@@ -15,24 +15,41 @@ userRouter.get("/", async (req, res) => {
   }
 });
 
-userRouter.get("/login", (req, res) => {
-  // Check if the user has a cookie with a key of "username"
+// userRouter.get("/login", (req, res) => {
+//   // Check if the user has a cookie with a key of "username"
+//   let existingUsername = req.cookies.username;
+//   if (!existingUsername)
+//     // If the user does not have a cookie, generate a random username
+//     existingUsername = randomUsername(); // subject to change
+
+//   try {
+//     const newUser = new User({
+//       username: existingUsername,
+//     });
+//     newUser.save().catch((err) => {
+//       console.log("user already exists");
+//     });
+//     // res.cookie("username", existingUsername).status(200).json({
+//     //   username: existingUsername,
+//     // });
+//     res.cookie("username", existingUsername, { httpOnly: true, secure: true, sameSite: 'None' }).status(200).json({ username: existingUsername });
+
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+userRouter.get("/login", async (req, res) => {
   let existingUsername = req.cookies.username;
-  if (!existingUsername)
-    // If the user does not have a cookie, generate a random username
-    existingUsername = randomUsername(); // subject to change
+  if (!existingUsername) {
+    existingUsername = randomUsername();
+  }
 
   try {
-    const newUser = new User({
-      username: existingUsername,
-    });
-    newUser.save().catch((err) => {
-      console.log("user already exists");
-    });
-    res.cookie("username", existingUsername).status(200).json({
-      username: existingUsername,
-    });
+    const newUser = new User({ username: existingUsername });
+    await newUser.save();
+    res.cookie("username", existingUsername, { httpOnly: true, secure: true, sameSite: 'None' }).status(200).json({ username: existingUsername });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });
