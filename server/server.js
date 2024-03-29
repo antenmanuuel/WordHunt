@@ -14,9 +14,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 mongoose.connect(
-  "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
+  process.env.MONGODB_URI
 ); //changed to ipv4
 
+// "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
 
 // All other routes should redirect to the Vite app
 app.get('*', (req, res) => {
