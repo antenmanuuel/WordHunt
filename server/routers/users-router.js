@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const mod = require("../models");
 const User = mod["User"];
 const fs = require("fs");
+const path = require("path");
 
 // returns all user records
 userRouter.get("/", async (req, res) => {
@@ -62,9 +63,8 @@ userRouter.post("/", async (req, res) => {
 });
 
 const randomUsername = () => {
-  let words = fs
-    .readFileSync("../5_letter_words.txt", "utf-8")
-    .split(/[\r\n]+/);
+  const filePath = path.resolve(__dirname, "../5_letter_words.txt");
+  let words = fs.readFileSync(filePath, "utf-8").split(/[\r\n]+/);
   let randomNumber = Math.floor(Math.random() * (9999 - 1000)) + 1000;
   let randomUsername = `${words[Math.floor(Math.random() * words.length)]}${
     words[Math.floor(Math.random() * words.length)]
