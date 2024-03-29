@@ -29,13 +29,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Cypress Tests
-        run: npx cypress run
-        working-directory: client
-
       - name: Run Backend Jest Tests
         run: npm test
         working-directory: server
+
+      - name: Run Cypress Tests
+        run: npx cypress run
+        working-directory: client
         
   build:
     needs: test
