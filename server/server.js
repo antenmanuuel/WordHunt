@@ -11,8 +11,6 @@ const app = express();
 const server = http.createServer(app);
 
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
 mongoose.connect(
   "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
 ); //changed to ipv4
@@ -23,11 +21,6 @@ db.once("open", () => console.log("Connected to Database"));
 
 app.use(express.json());
 app.use(cookieParser());
-
-// All other routes should redirect to the Vite app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
-});
 
 
 // for making requests from client side application
