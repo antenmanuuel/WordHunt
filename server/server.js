@@ -8,6 +8,7 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
+const PORT = process.env.PORT || 3000; 
 
 mongoose.connect(
   "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
@@ -43,6 +44,6 @@ app.use("/users", userRouter);
 handleSocketConnection(server);
 
 // start server
-server.listen(3000, () => {
+server.listen(PORT, () => {
   console.log("Server listening on port 3000");
 });
