@@ -2,14 +2,15 @@
     "name": "wordhunt-app",
     "version": "1.0.0",
     "scripts": {
-        "build": "cd client && npm install && npm run build",
-        "start": "cd server && npm install && npm start",
-        "heroku-postbuild": "cd client && npm install && npm run build"
+      "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm install && npm start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
 
     },
     "engines": {
-      "node": "14.x"
-    },
+        "node": "16.x"
+      },
+      
     "dependencies": {
       "autoprefixer": "^10.4.17",
       "js-cookie": "^3.0.5",

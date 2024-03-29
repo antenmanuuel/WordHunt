@@ -21,6 +21,8 @@ db.once("open", () => console.log("Connected to Database"));
 app.use(express.json());
 app.use(cookieParser());
 
+
+
 // for making requests from client side application
 app.use(cors());
 app.use((req, res, next) => {
