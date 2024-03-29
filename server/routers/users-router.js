@@ -25,12 +25,10 @@ userRouter.get("/login", (req, res) => {
   try {
     const newUser = new User({ username: existingUsername });
     newUser.save().catch((err) => console.log("user already exists"));
-    
-    // Adjust cookie settings for secure transmission
-    res.cookie("username", existingUsername, { 
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === "production", // Ensure cookies are secure in production
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" // Use 'none' for cross-site requests, 'lax' for same-site requests
+    res.cookie("username", existingUsername, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None'
     }).status(200).json({ username: existingUsername });
   } catch (err) {
     res.status(500).json({ message: err.message });
