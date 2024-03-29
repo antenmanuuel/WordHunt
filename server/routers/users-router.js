@@ -47,7 +47,7 @@ userRouter.get("/login", async (req, res) => {
   try {
     const newUser = new User({ username: existingUsername });
     await newUser.save();
-    console.log("user name here",username);
+    console.log("user name here",existingUsername);
     res.cookie("username", existingUsername, { httpOnly: true, secure: true, sameSite: 'None' }).status(200).json({ username: existingUsername });
   } catch (err) {
     console.log(err);
