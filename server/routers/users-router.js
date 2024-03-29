@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const mod = require("../models");
 const User = mod["User"];
 const fs = require("fs");
+const path = require("path");
 
 // returns all user records
 userRouter.get("/", async (req, res) => {
@@ -16,22 +17,13 @@ userRouter.get("/", async (req, res) => {
 });
 
 userRouter.get("/login", (req, res) => {
-  // Check if the user has a cookie with a key of "username"
-  let existingUsername = req.cookies.username;
-  if (!existingUsername)
-    // If the user does not have a cookie, generate a random username
-    existingUsername = randomUsername(); // subject to change
+  let existingUsername = randomUsername();
 
   try {
-    const newUser = new User({
-      username: existingUsername,
-    });
-    newUser.save().catch((err) => {
-      console.log("user already exists");
-    });
-    res.cookie("username", existingUsername).status(200).json({
-      username: existingUsername,
-    });
+    const newUser = new User({ username: existingUsername });
+    newUser.save().catch((err) => console.log("user already exists"));
+    console.log(existingUsername);
+    res.status(200).json({ username: existingUsername });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -41,6 +33,7 @@ userRouter.get("/login", (req, res) => {
 userRouter.get("/:id", async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
+    console.log(user)
     res.json(user);
   } catch (err) {
     res.status(500).send(err);
@@ -62,13 +55,13 @@ userRouter.post("/", async (req, res) => {
 });
 
 const randomUsername = () => {
-  let words = fs
-    .readFileSync("../5_letter_words.txt", "utf-8")
-    .split(/[\r\n]+/);
+  const filePath = path.resolve(__dirname, "../5_letter_words.txt");
+  let words = fs.readFileSync(filePath, "utf-8").split(/[\r\n]+/);
   let randomNumber = Math.floor(Math.random() * (9999 - 1000)) + 1000;
   let randomUsername = `${words[Math.floor(Math.random() * words.length)]}${
     words[Math.floor(Math.random() * words.length)]
   }${randomNumber}`;
+  console.log(randomUsername);
   return randomUsername;
 };
 

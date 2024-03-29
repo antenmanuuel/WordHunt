@@ -4,7 +4,7 @@ axios.defaults.withCredentials = true;
 export const gamesAPI = {
   getAllGames: async () => {
     try {
-      const response = await axios.get("http://localhost:3000/games");
+      const response = await axios.get("https://wordhunt-fff9a57fb464.herokuapp.com/games");
       return response.data;
     } catch (error) {
       console.error("Error fetching games:", error);
@@ -12,7 +12,7 @@ export const gamesAPI = {
   },
   getGameById: async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/games/${id}`);
+      const response = await axios.get(`https://wordhunt-fff9a57fb464.herokuapp.com/games/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching game by ID:", error);
@@ -20,7 +20,7 @@ export const gamesAPI = {
   },
   createGame: async (gameData) => {
     try {
-      const response = await axios.post("http://localhost:3000/games", gameData);
+      const response = await axios.post("https://wordhunt-fff9a57fb464.herokuapp.com/games", gameData);
       return response.data;
     } catch (error) {
       console.error("Error creating game:", error);
@@ -32,7 +32,7 @@ export const gamesAPI = {
 export const userAPI = {
   getAllUsers: async () => {
     try {
-      const response = await axios.get("http://localhost:3000/users", {
+      const response = await axios.get("https://wordhunt-fff9a57fb464.herokuapp.com/users", {
         withCredentials: true,
       });
       return response.data;
@@ -42,7 +42,7 @@ export const userAPI = {
   },
   getUserById: async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/${id}`, {
+      const response = await axios.get(`https://wordhunt-fff9a57fb464.herokuapp.com/users/${id}`, {
         withCredentials: true,
       });
       return response.data;
@@ -52,7 +52,7 @@ export const userAPI = {
   },
   createUser: async (userData) => {
     try {
-      const response = await axios.post("http://localhost:3000/users", userData, {
+      const response = await axios.post("https://wordhunt-fff9a57fb464.herokuapp.com/users", userData, {
         withCredentials: true,
       });
       return response.data;
@@ -62,7 +62,7 @@ export const userAPI = {
   },
   loginUser: async () => {
     try {
-      const response = await axios.get("http://localhost:3000/users/login", {
+      const response = await axios.get("https://wordhunt-fff9a57fb464.herokuapp.com/users/login", {
         withCredentials: true,
       });
       return response.data;
