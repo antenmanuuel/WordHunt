@@ -10,9 +10,19 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000; 
 
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
 mongoose.connect(
   "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
 ); //changed to ipv4
+
+
+// All other routes should redirect to the Vite app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+});
+
 
 const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
