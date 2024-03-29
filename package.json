@@ -2,10 +2,9 @@
     "name": "wordhunt-app",
     "version": "1.0.0",
     "scripts": {
-      "start": "node server/server.js",
-      "build": "cd client && npm install && npm run build",
-      "heroku-postbuild": "npm install --prefix client vite && npm run build --prefix client"
-
+        "build": "cd client && npm install && npm run build",
+        "start": "cd server && npm install && npm start",
+        "heroku-postbuild": "cd client && npm install && npm run build"
 
     },
     "engines": {
