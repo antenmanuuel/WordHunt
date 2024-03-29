@@ -29,7 +29,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // for making requests from client side application
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: ["https://wordhunt-fff9a57fb464.herokuapp.com", "http://localhost:3000"], // Ensure this matches your frontend's URL exactly
+  credentials: true,
+}));
+
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
