@@ -1,0 +1,95 @@
+name: Run Tests and Deploy
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [21.x]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      # Install server dependencies and cache them
+      - name: Cache Server Node Modules
+        uses: actions/cache@v2
+        with:
+          path: server/node_modules
+          key: ${{ runner.os }}-server-${{ hashFiles('server/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-server-
+      
+      - name: Install Server Dependencies
+        run: |
+          cd server
+          npm ci
+      
+      # Install client dependencies and cache them
+      - name: Cache Client Node Modules
+        uses: actions/cache@v2
+        with:
+          path: client/node_modules
+          key: ${{ runner.os }}-client-${{ hashFiles('client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-client-
+      
+      - name: Install Client Dependencies
+        run: |
+          cd client
+          npm ci
+      
+      - name: Run Backend Jest Tests
+        run: |
+          cd server
+          npm test
+      
+      - name: Run Cypress Tests
+        run: |
+          cd client
+          npx cypress run
+
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 21
+          
+      - name: Install Server Dependencies
+        run: |
+          cd server
+          npm ci
+      
+      - name: Install Client Dependencies
+        run: |
+          cd client
+          npm ci
+      
+      - name: Build Client for Production
+        run: |
+          cd client
+          npm run build
+          
+      - uses: akhileshns/heroku-deploy@v3.13.15 # This action deploys your app to Heroku
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "wordhunt" # Your Heroku app name
+          heroku_email: "antenmanuuel01@gmail.com"
