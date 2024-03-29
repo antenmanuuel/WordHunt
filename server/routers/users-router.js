@@ -17,19 +17,12 @@ userRouter.get("/", async (req, res) => {
 });
 
 userRouter.get("/login", (req, res) => {
-  let existingUsername = req.cookies.username;
-  if (!existingUsername) {
-    existingUsername = randomUsername();
-  }
+  let existingUsername = randomUsername();
 
   try {
     const newUser = new User({ username: existingUsername });
     newUser.save().catch((err) => console.log("user already exists"));
-    res.cookie("username", existingUsername, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None'
-    }).status(200).json({ username: existingUsername });
+    res.status(200).json({ username: existingUsername });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
