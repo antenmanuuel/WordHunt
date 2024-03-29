@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 
 const express = require("express");
 const http = require("http");
@@ -41,6 +41,10 @@ app.use("/users", userRouter);
 handleSocketConnection(server);
 
 // start server
-server.listen(3000, () => {
-  console.log("Server listening on port 3000");
+// server.listen(3000, () => {
+//   console.log("Server listening on port 3000");
+// });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
