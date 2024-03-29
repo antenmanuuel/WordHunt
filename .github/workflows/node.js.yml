@@ -11,11 +11,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
@@ -37,13 +33,9 @@ jobs:
         run: npx cypress run
         working-directory: client
         
-  build:
+  deploy:
     needs: test
-    runs-on: ${{ matrix.os }}
-    
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: windows-latest
         
     steps:
       - uses: actions/checkout@v2
