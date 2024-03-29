@@ -13,7 +13,7 @@ app.use("/users",userRouter);
 
 
 beforeAll(async () =>{
-    await mongoose.connect('mongodb://127.0.0.1/wordHunt')
+    await mongoose.connect("mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test")
 })
 
 afterAll(async()=>{ await mongoose.connection.close();})
