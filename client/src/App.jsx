@@ -13,7 +13,7 @@ import GameOverPage from "./pages/GameOverPage";
 function App() {
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    const newSocket = io( { autoConnect: false });
+    const newSocket = io( "https://wordhunt-fff9a57fb464.herokuapp.com/",{ autoConnect: false });
     setSocket(newSocket);
 
     return () => newSocket.disconnect();

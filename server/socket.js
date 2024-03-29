@@ -5,9 +5,6 @@ const User = models["User"];
 
 
 function handleSocketConnection(server) {
-    // const io = socketIo(server, {
-    //     cors: {origin: "https://wordhunt-fff9a57fb464.herokuapp.com/"}
-    // });
     const io = socketIo(server, {
         cors: {
             origin: "https://wordhunt-fff9a57fb464.herokuapp.com/",
