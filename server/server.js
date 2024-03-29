@@ -1,4 +1,3 @@
-
 const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
@@ -9,7 +8,6 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-
 
 mongoose.connect(
   "mongodb+srv://antenmanuuel:anten2001@cluster0.aaqyrxt.mongodb.net/test"
@@ -22,11 +20,13 @@ db.once("open", () => console.log("Connected to Database"));
 app.use(express.json());
 app.use(cookieParser());
 
-
 // for making requests from client side application
 app.use(cors());
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://wordhunt-fff9a57fb464.herokuapp.com/"
+  );
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
