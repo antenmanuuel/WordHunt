@@ -86,6 +86,7 @@ const randomUsername = () => {
   let randomUsername = `${words[Math.floor(Math.random() * words.length)]}${
     words[Math.floor(Math.random() * words.length)]
   }${randomNumber}`;
+  console.log("user name here",randomUsername);
   return randomUsername;
 };
 
