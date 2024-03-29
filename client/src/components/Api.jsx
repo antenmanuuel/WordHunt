@@ -42,7 +42,7 @@ export const userAPI = {
   },
   getUserById: async (id) => {
     try {
-      const response = await axios.get(`https://wordhunt-fff9a57fb464.herokuapp.com/${id}`, {
+      const response = await axios.get(`https://wordhunt-fff9a57fb464.herokuapp.com/users/${id}`, {
         withCredentials: true,
       });
       return response.data;

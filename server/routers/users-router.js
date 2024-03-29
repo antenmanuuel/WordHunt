@@ -22,6 +22,7 @@ userRouter.get("/login", (req, res) => {
   try {
     const newUser = new User({ username: existingUsername });
     newUser.save().catch((err) => console.log("user already exists"));
+    console.log(existingUsername);
     res.status(200).json({ username: existingUsername });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -32,6 +33,7 @@ userRouter.get("/login", (req, res) => {
 userRouter.get("/:id", async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
+    console.log(user)
     res.json(user);
   } catch (err) {
     res.status(500).send(err);
@@ -59,6 +61,7 @@ const randomUsername = () => {
   let randomUsername = `${words[Math.floor(Math.random() * words.length)]}${
     words[Math.floor(Math.random() * words.length)]
   }${randomNumber}`;
+  console.log(randomUsername);
   return randomUsername;
 };
 
