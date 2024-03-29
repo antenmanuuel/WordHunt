@@ -30,10 +30,12 @@ app.use(cookieParser());
 
 // for making requests from client side application
 // app.use(cors());
-app.use(cors({
-  origin: ["https://wordhunt-fff9a57fb464.herokuapp.com", "http://localhost:3000"], // Ensure this matches your frontend's URL exactly
-  credentials: true,
-}));
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGIN,
+  credentials: true, // to support credentials like cookies
+};
+
+app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
   res.header(
